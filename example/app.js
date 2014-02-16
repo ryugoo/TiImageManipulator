@@ -10,12 +10,12 @@
         var image_file = Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, 'sample.jpg'),
             image_blob = image_file.read();
 
-        /* Ti.API.debug('blob is => ' + image_blob);
-        Ti.API.debug('path is => ' + image_blob.nativePath);
-        Ti.API.debug('width is => ' + image_blob.width);
-        Ti.API.debug('height is => ' + image_blob.height);
-        Ti.API.debug('mimetype is => ' + image_blob.mimeType);
-        Ti.API.debug('filesize is => ' + image_blob.size); */
+        // Ti.API.debug('blob is => ' + image_blob);
+        // Ti.API.debug('path is => ' + image_blob.nativePath);
+        // Ti.API.debug('width is => ' + image_blob.width);
+        // Ti.API.debug('height is => ' + image_blob.height);
+        // Ti.API.debug('mimetype is => ' + image_blob.mimeType);
+        // Ti.API.debug('filesize is => ' + image_blob.size);
 
         var resized_blob = TiImageManipulator.resizeImage({
             image: image_blob,
@@ -35,17 +35,17 @@
         Ti.API.debug('filesize is => ' + resized_blob.size);
 
         // Upload test
-        var http = Ti.Network.createHTTPClient();
-        http.onload = function (e) {
-            Ti.API.debug(e);
-        };
-        http.onerror = function (e) {
-            Ti.API.error(e);
-        };
-        http.open('POST', 'http://127.0.0.1:9393/upload');
-        http.send({
-            file: resized_blob
-        });
+        // var http = Ti.Network.createHTTPClient();
+        // http.onload = function (e) {
+        //     Ti.API.debug(e);
+        // };
+        // http.onerror = function (e) {
+        //     Ti.API.error(e);
+        // };
+        // http.open('POST', 'http://127.0.0.1:9393/upload');
+        // http.send({
+        //     file: resized_blob
+        // });
 
         var image_view = Ti.UI.createImageView({
             image: resized_blob,
