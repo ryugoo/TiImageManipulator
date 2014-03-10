@@ -65,8 +65,12 @@
     // Create CoreImage
     TiBlob* baseBlob = args[@"image"];
     UIImage* baseImage = [baseBlob image];
+    UIGraphicsBeginImageContext(baseImage.size);
+    [baseImage drawInRect:CGRectMake(0, 0, baseImage.size.width, baseImage.size.height)];
+    baseImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
     CIImage* convertedImage = [[CIImage alloc] initWithCGImage:[baseImage CGImage]];
-    
+
     // Store original MIMEType
     NSString* originalMIMEType = [baseBlob mimeType];
     NSLog(@"[DEBUG] Input file MIMEType is => %@", originalMIMEType);
@@ -104,15 +108,16 @@
     NSData* convertedData;
     if ([originalMIMEType isEqualToString:@"image/jpeg"]) {
         mimeType = [originalMIMEType copy];
-        convertedData = UIImageJPEGRepresentation(proceedImage, 1.0f);
+        convertedData = UIImageJPEGRepresentation(proceedImage, 0.85f);
     } else if ([UIImageAlpha hasAlpha:proceedImage]) {
         mimeType = @"image/png";
         convertedData = UIImagePNGRepresentation(proceedImage);
     } else {
         mimeType = @"image/jpeg";
-        convertedData = UIImageJPEGRepresentation(proceedImage, 1.0f);
+        convertedData = UIImageJPEGRepresentation(proceedImage, 0.85f);
     }
-    TiBlob* convertedBlob = [[TiBlob alloc] initWithData:convertedData mimetype:mimeType];
+    TiBlob* convertedBlob = [[TiBlob alloc] initWithData:convertedData
+                                                mimetype:mimeType];
     return convertedBlob;
 }
 
